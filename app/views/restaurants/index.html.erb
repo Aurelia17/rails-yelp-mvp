@@ -1,0 +1,21 @@
+<div class="card border-info my-3 w-50 mx-auto">
+  <div class="card-header">
+    <h1>Restaurants</h1>
+  </div>
+  <div class="card-body">
+    <ul>
+      <% @restaurants.each do |restaurant| %>
+        <li class="list-group-item">
+          <%= link_to restaurant.name, restaurant_path(restaurant), class: "text-secondary" %>
+          <%= link_to "Delete",
+      restaurant_path(restaurant.id),
+      data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "text-danger"
+    %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="card-footer">
+    <%= link_to "add a new restaurant", new_restaurant_path,class: "btn btn-outline-info btn-sm" %>
+  </div>
+</div>

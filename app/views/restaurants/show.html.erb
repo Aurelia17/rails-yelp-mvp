@@ -1,0 +1,47 @@
+<div class="card border-info my-3 w-50 mx-auto ">
+  <div class="card-header">
+      <h2><%= @restaurant.name %></h2>
+      <p><%= link_to "Edit restaurant", edit_restaurant_path, class: "btn btn-outline-info btn-sm mt-2"  %></p>
+      <%= link_to "Delete",
+  restaurant_path(@restaurant),
+  data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-outline-danger btn-sm"
+%>
+  </div>
+  <div class="card-body">
+    <p>Address : <%= @restaurant.address %></p>
+    <p>Tel : <%= @restaurant.phone_number %></p>
+    <p>Category : <%= @restaurant.category %></p>
+  </div>
+
+  <div class="card-footer">
+    <p><strong>Reviews</strong></p>
+    <ul class="list-group">
+      <% @restaurant.reviews.each do |review| %>
+        <li class="list-group-item">
+          <%= review.content %>
+          <%= link_to "Delete",
+            review_path(review),
+            data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "text-danger"
+        %>
+        </li>
+      <% end %>
+    </ul>
+    <br>
+  </div>
+</div>
+
+<div class="card border-warning mb-3 w-50 mx-auto">
+  <div class="card-body">
+  <h3>Add review</h3>
+  <%= simple_form_for [@restaurant, @review] do |f| %>
+    <%= f.input :content %>
+    <%= f.input :rating, collection: 0..5 %>
+    <%= f.submit "Submit review", class: "btn btn-primary" %>
+  <% end %>
+  <br>
+  </div>
+</div>
+
+<div class="card mx-auto mb-3 w-50">
+  <%= link_to "Go back", restaurants_path,class: "btn btn-outline-dark btn-sm" %>
+</div>
